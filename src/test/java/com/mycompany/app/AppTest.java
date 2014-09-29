@@ -52,7 +52,7 @@ public class AppTest
         element.submit();
 
         // Check the title of the page
-        System.out.println("Page title is: " + driver.getTitle());
+        System.out.println("Page title is as follows: " + driver.getTitle());
 
         driver.quit();
     }
