@@ -24,6 +24,9 @@ public class LandingPage {
 
          WebElement elm = driver.findElement(By.xpath("//*[@id='pn5']/a"));
          elm.click();
+         try {
+             Thread.sleep(2000);
+         } catch (Exception e) {}
          List<WebElement> elementsList =  driver.findElements(By.xpath("//*[@id='pn5']/ul/li/a"));
          List<String> options = new ArrayList<String>();
          for(WebElement option:elementsList) {

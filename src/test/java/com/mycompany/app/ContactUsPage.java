@@ -1,8 +1,12 @@
 package com.mycompany.app;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,14 +35,26 @@ public class ContactUsPage {
     }
 
     public ContactUsPage selectPayAndGoTeam() {
-        WebElement elm = driver.findElement(By.xpath("//h2[contains(@onclick,'PAYG VOICE')]//a"));
+        //JavascriptExecutor executor = (JavascriptExecutor)driver;
+        //executor.executeScript("document.getElementsByClassName('trigger')[2].click();");
+        WebElement elm = driver.findElement(By.xpath("(//h4[@class='paygoteam h'])[2]/a"));
         elm.click();
         return this;
 
     }
 
-    public void getOpeningTimes() {
+    public List<String> getOpeningTimes() {
 
+        List<WebElement> elementsList =  driver.findElements(By.xpath("//*[@class='paygoteam inner']//*[@class='times']//tbody//td"));
+        List<String> times = new ArrayList<String>();
+        int i=0;
+        for(WebElement option:elementsList) {
+            ++i;
+            if (i>8 && i<15){
+                times.add(option.getText());
+            }
+        }
+        return times;
     }
 }
 
