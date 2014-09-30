@@ -3,10 +3,11 @@ package com.mycompany.app;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -14,6 +15,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class AppTest 
     extends TestCase
 {
+    WebDriver driver;
     /**
      * Create the test case
      *
@@ -33,27 +35,29 @@ public class AppTest
     }
 
     /**
-     * Rigourous Test :-)
+     * Test :-)
      */
     public void testApp()
     {
-        WebDriver driver = new FirefoxDriver();
+        // get driver
+        driver = new FirefoxDriver();
 
-        // And now use this to visit Google
-        driver.get("http://www.google.com");
+        // onto landing Page
+        LandingPage landingPage = new LandingPage(driver);
 
-        // Find the text input element by its name
-        WebElement element = driver.findElement(By.name("q"));
-
-        // Enter something to search for
-        element.sendKeys("Cheese!");
-
-        // Now submit the form. WebDriver will find the form for us from the element
-        element.submit();
-
-        // Check the title of the page
-        System.out.println("Page title is as follows now : " + driver.getTitle());
-
+        // get help options and validate and print
+        List actualOptions = landingPage.getHelpSectionOptions();
+        ArrayList<String> expectedOptions = new ArrayList<String>();
+        expectedOptions.add("Browse Help");
+        expectedOptions.add("All Help topics");
+        expectedOptions.add("Contact us");
+        expectedOptions.add("O2 Gurus");
+        expectedOptions.add("O2 Community");
+        assertEquals(expectedOptions, actualOptions);
+        System.out.println(expectedOptions);
+        ContactUsPage contactUsPage = landingPage.selectContactUs();
+        contactUsPage.selectIveGotATechnicalQuestion();
         driver.quit();
     }
+
 }
