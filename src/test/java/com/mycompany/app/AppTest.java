@@ -8,9 +8,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
- * Unit test for simple App.
+ * Unit test for O2 exercise
  */
 public class AppTest 
     extends TestCase
@@ -35,12 +36,14 @@ public class AppTest
     }
 
     /**
-     * Test :-)
+     * Test method
      */
     public void testApp()
     {
-        // get driver
+        // get driver and setup
         driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().window().maximize();
 
         // onto landing Page
         LandingPage landingPage = new LandingPage(driver);
@@ -55,8 +58,26 @@ public class AppTest
         expectedOptions.add("O2 Community");
         assertEquals(expectedOptions, actualOptions);
         System.out.println(expectedOptions);
+
+        // get to opening times
         ContactUsPage contactUsPage = landingPage.selectContactUs();
         contactUsPage.selectIveGotATechnicalQuestion();
+        contactUsPage.selectPreferToSpeakToSomeone();
+        contactUsPage.selectPayAndGoTeam();
+
+        // validate and print opening times first section
+        List actualTimes = contactUsPage.getOpeningTimes();
+        ArrayList<String> expectedTimes = new ArrayList<String>();
+        expectedTimes.add("Monday - Friday");
+        expectedTimes.add("08:00 - 21:00");
+        expectedTimes.add("Saturday");
+        expectedTimes.add("08:00 - 20:00");
+        expectedTimes.add("Sunday");
+        expectedTimes.add("09:00 - 18:00");
+        assertEquals(expectedTimes, actualTimes);
+        System.out.println(actualTimes);
+
+        // exit
         driver.quit();
     }
 
