@@ -51,7 +51,7 @@ public class AppTest
         // get help options and validate and print
         List actualOptions = landingPage.getHelpSectionOptions();
         ArrayList<String> expectedOptions = new ArrayList<String>();
-        expectedOptions.add("Browse Help");
+        expectedOptions.add("BrowseHelp");
         expectedOptions.add("All Help topics");
         expectedOptions.add("Contact us");
         expectedOptions.add("O2 Gurus");
